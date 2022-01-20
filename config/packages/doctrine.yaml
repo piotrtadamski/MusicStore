@@ -1,6 +1,10 @@
 doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
+        types:
+            title : 'MusicStore\Infrastructure\Adapters\Doctrine\DBAL\Types\TitleType'
+            year: 'MusicStore\Infrastructure\Adapters\Doctrine\DBAL\Types\YearType'
+            url: 'MusicStore\Infrastructure\Adapters\Doctrine\DBAL\Types\UrlType'
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
