@@ -30,12 +30,12 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "MusicStore\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "MusicStore\\Tests\\": "tests/"
         }
     },
     "replace": {
