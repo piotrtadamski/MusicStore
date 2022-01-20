@@ -3,7 +3,7 @@
 namespace MusicStore\Infrastructure\Adapters\Doctrine\DBAL\Types;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use MusicStore\Domain\Common\Url;
+use MusicStore\Domain\Common\Types\Url;
 
 final class UrlType extends AbstractStringType
 {

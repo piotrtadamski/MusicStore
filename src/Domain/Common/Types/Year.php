@@ -1,6 +1,6 @@
 <?php
 
-namespace MusicStore\Domain\Common;
+namespace MusicStore\Domain\Common\Types;
 
 class Year
 {

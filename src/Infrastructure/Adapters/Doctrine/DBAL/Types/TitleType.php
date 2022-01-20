@@ -3,7 +3,7 @@
 namespace MusicStore\Infrastructure\Adapters\Doctrine\DBAL\Types;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use MusicStore\Domain\Common\Title;
+use MusicStore\Domain\Common\Types\Title;
 
 final class TitleType extends AbstractStringType
 {
