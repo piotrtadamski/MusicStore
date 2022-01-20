@@ -1,0 +1,39 @@
+version: "3.5"
+
+services:
+  mysql:
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: codibly
+      MYSQL_USER: codibly
+      MYSQL_PASSWORD: codibly
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3306:3306
+
+  nginx:
+    build: docker/nginx
+    depends_on:
+      - php
+    environment:
+      PHP_FPM_IP: php
+      PHP_FPM_PORT: 9000
+    ports:
+      - 8000:80
+    volumes:
+      - .:/app
+  
+  php:
+    build:
+      context: docker/php
+      target: php-7_4-dev
+    image: php-7_4-dev
+    depends_on:
+      - mysql
+    environment:
+      DATABASE_URL: "mysql://codibly:codibly@mysql:3306/codibly?serverVersion=8"
+      PHP_VERSION: 7.4
+    volumes:
+      - .:/app
+
