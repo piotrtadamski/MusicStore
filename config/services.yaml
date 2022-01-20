@@ -13,8 +13,8 @@ services:
             - '../src/Domain/'
             - '../src/Kernel.php'
 
-    MusicStore\Infrastructure\Port\Api\Controller\:
-        resource: '../src/Infrastructure/Port/Api/Controller/'
+    MusicStore\Infrastructure\Ports\Api\Controller\:
+        resource: '../src/Infrastructure/Ports/Api/Controller/'
         tags: ['controller.service_arguments']
 
     MusicStore\Application\Command\:
@@ -24,3 +24,8 @@ services:
     MusicStore\Application\Query\:
         resource: '../src/Application/Query'
         tags: ['controller.service_arguments']
+
+    _instanceof:
+        MusicStore\Application\Command\CommandHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: command_bus }
