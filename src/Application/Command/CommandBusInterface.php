@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MusicStore\Application\Command;
 
-interface CommandBus
+interface CommandBusInterface
 {
     public function dispatch(object $command): void;
 }
