@@ -3,6 +3,7 @@
 namespace MusicStore\Domain\Album;
 
 use Doctrine\ORM\Mapping as ORM;
+use MusicStore\Domain\Band\Band;
 use MusicStore\Domain\Common\Types\Title;
 use MusicStore\Domain\Common\Types\Year;
 
@@ -20,11 +21,18 @@ class Album
     /** @ORM\Column(type="year") */
     private Year $year;
 
-    public function __construct(int $id, Title $title, Year $year)
+    /**
+     * @ORM\ManyToOne(targetEntity="MusicStore\Domain\Band\Band")
+     * @ORM\JoinColumn(name="band_id", referencedColumnName="id")
+     */
+    private Band $band;
+
+    public function __construct(int $id, Title $title, Year $year, Band $band)
     {
         $this->id = $id;
         $this->title = $title;
         $this->year = $year;
+        $this->band = $band;
     }
 
     public function getId(): int
@@ -50,5 +58,15 @@ class Album
     public function setYear(Year $year): void
     {
         $this->year = $year;
+    }
+
+    public function getBand(): Band
+    {
+        return $this->band;
+    }
+
+    public function setBand(Band $band): void
+    {
+        $this->band = $band;
     }
 }
