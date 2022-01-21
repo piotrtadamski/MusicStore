@@ -7,6 +7,7 @@ use MusicStore\Domain\Band\Types\BandName;
 
 /**
  * @ORM\Entity
+ * @ORM\Table(name="bands")
  */
 class Band
 {

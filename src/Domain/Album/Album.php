@@ -9,6 +9,7 @@ use MusicStore\Domain\Common\Types\Year;
 
 /**
  * @ORM\Entity
+ * @ORM\Table(name="albums")
  */
 class Album
 {

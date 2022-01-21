@@ -9,6 +9,7 @@ use MusicStore\Domain\Common\Types\Url;
 
 /**
  * @ORM\Entity
+ * @ORM\Table(name="tracks")
  */
 class Track
 {
