@@ -3,7 +3,7 @@
 namespace MusicStore\Domain\Band;
 
 use Doctrine\ORM\Mapping as ORM;
-use MusicStore\Domain\Common\Types\BandName;
+use MusicStore\Domain\Band\Types\BandName;
 
 /**
  * @ORM\Entity
