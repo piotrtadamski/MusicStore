@@ -5,6 +5,7 @@ doctrine:
             title : 'MusicStore\Infrastructure\Adapters\Doctrine\DBAL\Types\TitleType'
             year: 'MusicStore\Infrastructure\Adapters\Doctrine\DBAL\Types\YearType'
             url: 'MusicStore\Infrastructure\Adapters\Doctrine\DBAL\Types\UrlType'
+            band_name: 'MusicStore\Infrastructure\Adapters\Doctrine\DBAL\Types\BandNameType'
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
