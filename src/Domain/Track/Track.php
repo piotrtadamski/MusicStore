@@ -28,9 +28,8 @@ class Track
      */
     private Album $album;
 
-    public function __construct(int $id, Title $title, Url $url, Album $album)
+    public function __construct(Title $title, Url $url, Album $album)
     {
-        $this->id = $id;
         $this->title = $title;
         $this->url = $url;
         $this->album = $album;

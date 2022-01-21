@@ -28,9 +28,8 @@ class Album
      */
     private Band $band;
 
-    public function __construct(int $id, Title $title, Year $year, Band $band)
+    public function __construct(Title $title, Year $year, Band $band)
     {
-        $this->id = $id;
         $this->title = $title;
         $this->year = $year;
         $this->band = $band;

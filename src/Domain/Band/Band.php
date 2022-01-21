@@ -17,9 +17,8 @@ class Band
     /** @ORM\Column(type="band_name") */
     private BandName $bandName;
 
-    public function __construct(int $id, BandName $bandName)
+    public function __construct(BandName $bandName)
     {
-        $this->id = $id;
         $this->bandName = $bandName;
     }
 
