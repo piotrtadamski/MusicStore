@@ -11,6 +11,10 @@ use MusicStore\Domain\Common\Types\Url;
  */
 class Track
 {
+    /**
+     * @ORM\Id() @ORM\Column(type="integer") @ORM\GeneratedValue()
+     * @var int
+     */
     private int $id;
     private Title $title;
     private Url $url;
@@ -22,41 +26,26 @@ class Track
         $this->url = $url;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return Title
-     */
     public function getTitle(): Title
     {
         return $this->title;
     }
 
-    /**
-     * @return Url
-     */
     public function getUrl(): Url
     {
         return $this->url;
     }
 
-    /**
-     * @param Title $title
-     */
     public function setTitle(Title $title): void
     {
         $this->title = $title;
     }
 
-    /**
-     * @param Url $url
-     */
     public function setUrl(Url $url): void
     {
         $this->url = $url;
