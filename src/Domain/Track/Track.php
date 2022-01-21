@@ -3,6 +3,7 @@
 namespace MusicStore\Domain\Track;
 
 use Doctrine\ORM\Mapping as ORM;
+use MusicStore\Domain\Album\Album;
 use MusicStore\Domain\Common\Types\Title;
 use MusicStore\Domain\Common\Types\Url;
 
@@ -20,11 +21,18 @@ class Track
     /** @ORM\Column(type="url") */
     private Url $url;
 
-    public function __construct(int $id, Title $title, Url $url)
+    /**
+     * @ORM\ManyToOne(targetEntity="MusicStore\Domain\Album\Album")
+     * @ORM\JoinColumn(name="album_id", referencedColumnName="id")
+     */
+    private Album $album;
+
+    public function __construct(int $id, Title $title, Url $url, Album $album)
     {
         $this->id = $id;
         $this->title = $title;
         $this->url = $url;
+        $this->album = $album;
     }
 
     public function getId(): int
@@ -50,5 +58,15 @@ class Track
     public function setUrl(Url $url): void
     {
         $this->url = $url;
+    }
+
+    public function getAlbum(): Album
+    {
+        return $this->album;
+    }
+
+    public function setAlbum(Album $album): void
+    {
+        $this->album = $album;
     }
 }
