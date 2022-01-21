@@ -11,12 +11,13 @@ use MusicStore\Domain\Common\Types\Url;
  */
 class Track
 {
-    /**
-     * @ORM\Id() @ORM\Column(type="integer") @ORM\GeneratedValue()
-     * @var int
-     */
+    /** @ORM\Id() @ORM\Column(type="integer") @ORM\GeneratedValue() */
     private int $id;
+
+    /** @ORM\Column(type="title") */
     private Title $title;
+
+    /** @ORM\Column(type="url") */
     private Url $url;
 
     public function __construct(int $id, Title $title, Url $url)

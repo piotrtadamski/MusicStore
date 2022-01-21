@@ -10,11 +10,10 @@ use MusicStore\Domain\Common\Types\BandName;
  */
 class Band
 {
-    /**
-     * @ORM\Id() @ORM\Column(type="integer") @ORM\GeneratedValue()
-     * @var int
-     */
+    /** @ORM\Id() @ORM\Column(type="integer") @ORM\GeneratedValue() */
     private int $id;
+
+    /** @ORM\Column(type="band_name") */
     private BandName $bandName;
 
     public function __construct(int $id, BandName $bandName)

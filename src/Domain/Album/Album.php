@@ -11,12 +11,13 @@ use MusicStore\Domain\Common\Types\Year;
  */
 class Album
 {
-    /**
-     * @ORM\Id() @ORM\Column(type="integer") @ORM\GeneratedValue()
-     * @var int
-     */
+    /** @ORM\Id() @ORM\Column(type="integer") @ORM\GeneratedValue() */
     private int $id;
+
+    /** @ORM\Column(type="title") */
     private Title $title;
+
+    /** @ORM\Column(type="year") */
     private Year $year;
 
     public function __construct(int $id, Title $title, Year $year)
