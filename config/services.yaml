@@ -19,13 +19,14 @@ services:
 
     MusicStore\Application\Command\:
         resource: '../src/Application/Command/**/**Handler.php'
-        tags: ['controller.service_arguments']
-
-    MusicStore\Application\Query\:
-        resource: '../src/Application/Query'
-        tags: ['controller.service_arguments']
 
     _instanceof:
         MusicStore\Application\Command\CommandHandlerInterface:
             tags:
                 - { name: messenger.message_handler, bus: command_bus }
+
+    MusicStore\Application\Command\CommandBusInterface: '@MusicStore\Infrastructure\Adapters\Symfony\Messenger\CommandBus'
+    MusicStore\Domain\Album\AlbumRepositoryInterface: '@MusicStore\Infrastructure\Adapters\Doctrine\DomainModel\AlbumRepository'
+    MusicStore\Domain\Band\BandRepositoryInterface: '@MusicStore\Infrastructure\Adapters\Doctrine\DomainModel\BandRepository'
+    MusicStore\Domain\Track\TrackRepositoryInterface: '@MusicStore\Infrastructure\Adapters\Doctrine\DomainModel\TrackRepository'
+    
