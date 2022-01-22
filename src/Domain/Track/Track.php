@@ -69,4 +69,9 @@ class Track
     {
         $this->album = $album;
     }
+
+    public static function create(Title $title, Url $url, Album $album): self
+    {
+        return new self($title, $url, $album);
+    }
 }

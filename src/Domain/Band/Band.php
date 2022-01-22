@@ -36,4 +36,9 @@ class Band
     {
         $this->bandName = $bandName;
     }
+
+    public static function create(BandName $bandName): self
+    {
+        return new self($bandName);
+    }
 }
