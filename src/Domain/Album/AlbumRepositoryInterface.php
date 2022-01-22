@@ -10,4 +10,6 @@ interface AlbumRepositoryInterface
     public function findAll(): array;
     public function get(int $id): Album;
     public function save(Album $album): Album;
+    public function remove(Album $track);
+
 }

@@ -10,4 +10,5 @@ interface BandRepositoryInterface
     public function findAll(): array;
     public function get(int $id): Band;
     public function save(Band $band);
+    public function remove(Band $track);
 }
