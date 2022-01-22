@@ -1,6 +1,6 @@
 <?php
 
-namespace MusicStore\Domain\Band\Types;
+namespace MusicStore\Domain\Band;
 
 class BandName
 {

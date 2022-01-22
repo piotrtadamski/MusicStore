@@ -4,8 +4,8 @@ namespace MusicStore\Application\Command\Band;
 
 use MusicStore\Application\Command\CommandHandlerInterface;
 use MusicStore\Domain\Band\Band;
+use MusicStore\Domain\Band\BandName;
 use MusicStore\Domain\Band\BandRepositoryInterface;
-use MusicStore\Domain\Band\Types\BandName;
 
 class AddBandHandler implements CommandHandlerInterface
 {
