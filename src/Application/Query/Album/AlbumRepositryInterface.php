@@ -4,7 +4,7 @@ namespace MusicStore\Application\Query\Album;
 
 interface AlbumRepositryInterface
 {
-    /** @return OutputAlbum[] */
+    /** @return AlbumQueryResult[] */
     public function findAll(): array;
-    public function get(int $id): OutputAlbum;
+    public function get(int $id): AlbumQueryResult;
 }

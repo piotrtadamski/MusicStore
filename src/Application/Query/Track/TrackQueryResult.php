@@ -2,7 +2,7 @@
 
 namespace MusicStore\Application\Query\Track;
 
-class OutputTrack
+class TrackQueryResult
 {
     private string $title;
     private string $url;

@@ -2,8 +2,11 @@
 
 namespace MusicStore\Application\Query\Album;
 
-class OutputAlbum
+class AlbumQueryResult
 {
+    private string $title;
+    private string $year;
+
     public function __construct(string $title, string $year)
     {
         $this->title = $title;

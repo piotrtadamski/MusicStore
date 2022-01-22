@@ -4,7 +4,7 @@ namespace MusicStore\Application\Query\Track;
 
 interface TrackRepositoryInterface
 {
-    /** @return OutputTrack[] */
+    /** @return TrackQueryResult[] */
     public function findAll(): array;
-    public function get(int $id): OutputTrack;
+    public function get(int $id): TrackQueryResult;
 }
