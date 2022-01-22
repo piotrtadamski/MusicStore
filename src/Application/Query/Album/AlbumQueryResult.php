@@ -22,9 +22,4 @@ class AlbumQueryResult
     {
         return $this->year;
     }
-
-    public static function create(string $title, string $year)
-    {
-        return new static($title, $year);
-    }
 }

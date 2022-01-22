@@ -22,9 +22,4 @@ class TrackQueryResult
     {
         return $this->url;
     }
-
-    public static function create(string $title, string $url)
-    {
-        return new self($title, $url);
-    }
 }

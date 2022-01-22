@@ -15,9 +15,4 @@ class BandQueryResult
     {
         return $this->bandName;
     }
-
-    public static function create(string $bandName)
-    {
-        return new static($bandName);
-    }
 }
