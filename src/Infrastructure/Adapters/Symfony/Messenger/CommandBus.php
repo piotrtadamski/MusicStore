@@ -1,5 +1,7 @@
 <?php
 
+namespace MusicStore\Infrastructure\Adapters\Symfony\Messenger;
+
 use Symfony\Component\Messenger\MessageBusInterface;
 use MusicStore\Application\Command\CommandBusInterface;
 
