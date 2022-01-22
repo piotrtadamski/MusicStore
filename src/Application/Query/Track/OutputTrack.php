@@ -1,18 +1,16 @@
 <?php
 
-namespace MusicStore\Application\Command\Track;
+namespace MusicStore\Application\Query\Track;
 
-class AddTrack
+class OutputTrack
 {
     private string $title;
     private string $url;
-    private int $albumId;
 
-    public function __construct(string $title, string $url, int $albumId)
+    public function __construct(string $title, string $url)
     {
         $this->title = $title;
         $this->url = $url;
-        $this->albumId = $albumId;
     }
 
     public function getTitle(): string
@@ -25,9 +23,8 @@ class AddTrack
         return $this->url;
     }
 
-    public function getAlbumId(): int
+    public static function create(string $title, string $url)
     {
-        return $this->albumId;
+        return new self($title, $url);
     }
-
 }
