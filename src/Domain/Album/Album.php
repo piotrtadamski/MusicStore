@@ -70,7 +70,7 @@ class Album
         $this->band = $band;
     }
 
-    public function create(Title $title, Year $year, Band $band)
+    public static function create(Title $title, Year $year, Band $band)
     {
         return new self($title, $year, $band);
     }
