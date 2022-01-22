@@ -30,9 +30,14 @@ class BandRepository implements BandRepositoryInterface
         throw new BandNotFoundException();
     }
 
-    public function save(Band $band)
+    public function save(Band $band): Band
     {
         $this->entityManager->persist($band);
         return $band;
+    }
+
+    public function remove(Band $band)
+    {
+        $this->entityManager->remove($band);
     }
 }

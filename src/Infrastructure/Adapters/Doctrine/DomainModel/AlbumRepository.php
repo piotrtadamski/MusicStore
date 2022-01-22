@@ -30,9 +30,14 @@ class AlbumRepository implements AlbumRepositoryInterface
         throw new AlbumNotFoundException();
     }
 
-    public function save(Album $album)
+    public function save(Album $album): Album
     {
         $this->entityManager->persist($album);
         return $album;
+    }
+
+    public function remove(Album $album)
+    {
+        $this->entityManager->remove($album);
     }
 }

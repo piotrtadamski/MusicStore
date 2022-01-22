@@ -28,9 +28,14 @@ class TrackRepository implements TrackRepositoryInterface
         throw new TrackNotFoundException();
     }
 
-    public function save(Track $track)
+    public function save(Track $track): Track
     {
         $this->entityManager->persist($track);
         return $track;
+    }
+
+    public function remove(Track $track)
+    {
+        $this->entityManager->remove($track);
     }
 }
