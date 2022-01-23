@@ -70,11 +70,17 @@ class AlbumController extends AbstractController
     }
 
     /**
-     * @Route(path="", methods={"GET"})
+     * @Route(path="", name="api_album_list",methods={"GET"})
      */
-    public function listAll(Request $request)
+    public function listAll(AlbumRepositoryInterface $albumRepository)
     {
-        return JsonResponse::create([], Response::HTTP_NOT_IMPLEMENTED);
+        $albums = $albumRepository->findAll();
+        $count = \count($albums);
+
+        return JsonResponse::create(json_encode($albums), Response::HTTP_OK, [
+                'Content-Range' => sprintf('%s %d-%d/%d', 'Album', 0, $count, $count)
+            ]
+        );
     }
 
     /**
