@@ -23,7 +23,7 @@ class Track
     private Url $url;
 
     /**
-     * @ORM\ManyToOne(targetEntity="MusicStore\Domain\Album\Album")
+     * @ORM\ManyToOne(targetEntity="MusicStore\Domain\Album\Album", inversedBy="tracks")
      * @ORM\JoinColumn(name="album_id", referencedColumnName="id")
      */
     private Album $album;

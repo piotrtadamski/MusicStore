@@ -2,7 +2,10 @@
 
 namespace MusicStore\Domain\Band;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use MusicStore\Domain\Album\Album;
 
 /**
  * @ORM\Entity
@@ -16,9 +19,15 @@ class Band implements \JsonSerializable
     /** @ORM\Column(type="band_name") */
     private BandName $bandName;
 
+    /**
+     * @ORM\OneToMany(targetEntity="MusicStore\Domain\Album\Album", mappedBy="band")
+     */
+    private Collection $albums;
+
     public function __construct(BandName $bandName)
     {
         $this->bandName = $bandName;
+        $this->albums = new ArrayCollection();
     }
 
     public function getId(): int
@@ -36,16 +45,38 @@ class Band implements \JsonSerializable
         $this->bandName = $bandName;
     }
 
+    public function getAlbums(): Collection
+    {
+        return $this->albums;
+    }
+
     public static function create(BandName $bandName): self
     {
         return new self($bandName);
+    }
+
+    public function addAlbum(Album $album): self
+    {
+        if (!$this->albums->contains($album)) {
+            $this->albums[] = $album;
+            $album->setBand($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAlbum(Album $album): self
+    {
+        $this->albums->removeElement($album);
+
+        return $this;
     }
 
     public function jsonSerialize()
     {
         return [
             'id' => $this->getId(),
-          'name' => $this->getBandName()
+            'name' => $this->getBandName()
         ];
     }
 }
