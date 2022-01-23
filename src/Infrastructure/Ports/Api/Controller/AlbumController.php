@@ -35,7 +35,7 @@ class AlbumController extends AbstractController
     }
 
     /**
-     * @Route(path="/{bandId}", name="api_album_update", methods={"PUT"})
+     * @Route(path="/{albumId}", name="api_album_update", methods={"PUT"})
      */
     public function update(Request $request, CommandBusInterface $commandBus)
     {
