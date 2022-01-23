@@ -4,6 +4,7 @@ namespace MusicStore\Infrastructure\Ports\Api\Controller;
 
 use MusicStore\Application\Command\Band\AddBand;
 use MusicStore\Application\Command\Band\EditBand;
+use MusicStore\Application\Command\Band\DeleteBand;
 use MusicStore\Application\Command\CommandBusInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -50,11 +51,18 @@ class BandController extends AbstractController
     }
 
     /**
-     * @Route(path="", methods={"DELETE"})
+     * @Route(path="/{bandId}", name="api_band_delete", methods={"DELETE"})
      */
-    public function remove(Request $request)
+    public function remove(Request $request, CommandBusInterface $commandBus)
     {
-        return JsonResponse::create([]);
+        $commandBus->dispatch(new DeleteBand(
+            $request->get('bandId')
+        ));
+
+        return JsonResponse::create([],
+            Response::HTTP_CREATED,
+            $this->responseHeaderBag->all()
+        );
     }
 
     /**
