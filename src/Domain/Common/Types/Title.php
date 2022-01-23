@@ -2,7 +2,7 @@
 
 namespace MusicStore\Domain\Common\Types;
 
-class Title
+class Title  implements \JsonSerializable
 {
     private string $title;
 
@@ -17,6 +17,11 @@ class Title
     }
 
     public function __toString()
+    {
+        return $this->title;
+    }
+
+    public function jsonSerialize()
     {
         return $this->title;
     }
