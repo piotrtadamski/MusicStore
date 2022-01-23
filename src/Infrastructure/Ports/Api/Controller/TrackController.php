@@ -2,6 +2,7 @@
 
 namespace MusicStore\Infrastructure\Ports\Api\Controller;
 
+use MusicStore\Domain\Track\TrackRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,12 +14,14 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TrackController extends AbstractController
 {
+
     /**
-     * @Route(path="", methods={"GET"})
+     * @Route(path="/{trackId}", name="api_track_show", methods={"GET"})
      */
-    public function show()
+    public function show(Request $request, TrackRepositoryInterface $trackRepository)
     {
-        return JsonResponse::create([], Response::HTTP_NOT_IMPLEMENTED);
+        $track = $trackRepository->get((int) $request->get('trackId'));
+        return JsonResponse::create($track);
     }
 
     /**
