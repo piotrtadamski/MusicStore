@@ -5,6 +5,7 @@ namespace MusicStore\Infrastructure\Ports\Api\Controller;
 use MusicStore\Application\Command\Album\AddAlbum;
 use MusicStore\Application\Command\Album\DeleteAlbum;
 use MusicStore\Application\Command\Album\EditAlbum;
+use MusicStore\Application\Command\Album\PromoteAlbum;
 use MusicStore\Application\Command\CommandBusInterface;
 use MusicStore\Domain\Album\AlbumRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,6 +25,20 @@ class AlbumController extends AbstractController
     public function __construct(ResponseHeaderBag $responseHeaderBag)
     {
         $this->responseHeaderBag = $responseHeaderBag;
+    }
+
+    /**
+     * @Route(path="/{albumId}/promote", name="api_album_promote", methods={"POST"})
+     */
+    public function promote(Request $request, CommandBusInterface $commandBus)
+    {
+        $commandBus->dispatch(new PromoteAlbum(
+            (int)$request->get('albumId')
+        ));
+
+        return $this->json([
+            'albumId' => (int)$request->get('albumId')
+        ]);
     }
 
     /**
