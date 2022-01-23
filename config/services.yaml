@@ -25,6 +25,10 @@ services:
         arguments:
             $responseHeaderBag: '@MusicStore\Infrastructure\Adapters\Doctrine\EventListener\ResponseHeaderBag'
 
+    MusicStore\Infrastructure\Ports\Api\Controller\TrackController:
+        arguments:
+            $responseHeaderBag: '@MusicStore\Infrastructure\Adapters\Doctrine\EventListener\ResponseHeaderBag'
+
     MusicStore\Application\Command\:
         resource: '../src/Application/Command/**/**Handler.php'
 
