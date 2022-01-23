@@ -42,6 +42,12 @@ services:
     MusicStore\Domain\Band\BandRepositoryInterface: '@MusicStore\Infrastructure\Adapters\Doctrine\DomainModel\BandRepository'
     MusicStore\Domain\Track\TrackRepositoryInterface: '@MusicStore\Infrastructure\Adapters\Doctrine\DomainModel\TrackRepository'
 
+    MusicStore\Infrastructure\Adapters\Mailer\SystemMailer:
+        arguments:
+            $connectionString: '%env(MAILER_DSN)%'
+
+    MusicStore\Application\Notification\MailerInterface: '@MusicStore\Infrastructure\Adapters\Mailer\SystemMailer'
+
     MusicStore\Infrastructure\Adapters\Doctrine\EventListener\ResponseHeaderBag:
         class: Symfony\Component\HttpFoundation\ResponseHeaderBag
         arguments: []
