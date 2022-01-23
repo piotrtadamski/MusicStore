@@ -17,6 +17,10 @@ services:
         resource: '../src/Infrastructure/Ports/Api/Controller/'
         tags: ['controller.service_arguments']
 
+    MusicStore\Infrastructure\Ports\Api\Controller\BandController:
+        arguments:
+            $responseHeaderBag: '@MusicStore\Infrastructure\Adapters\Doctrine\EventListener\ResponseHeaderBag'
+
     MusicStore\Application\Command\:
         resource: '../src/Application/Command/**/**Handler.php'
 
