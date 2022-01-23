@@ -43,7 +43,7 @@ class AlbumController extends AbstractController
         $content = json_decode($request->getContent(), true);
         $commandBus->dispatch(new EditAlbum(
             (int) $request->get('albumId'),
-            (int) $request->get('bandId'),
+            (int) $content['bandId'],
             $content['title'],
             $content['year']
         ));
