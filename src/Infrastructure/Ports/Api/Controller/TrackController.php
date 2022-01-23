@@ -5,6 +5,7 @@ namespace MusicStore\Infrastructure\Ports\Api\Controller;
 use MusicStore\Application\Command\CommandBusInterface;
 use MusicStore\Application\Command\Track\AddTrack;
 use MusicStore\Application\Command\Track\DeleteTrack;
+use MusicStore\Application\Command\Track\EditTrack;
 use MusicStore\Domain\Track\TrackRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -35,11 +36,22 @@ class TrackController extends AbstractController
     }
 
     /**
-     * @Route(path="", methods={"PUT"})
+     * @Route(path="/{trackId}", name="api_track_update", methods={"PUT"})
      */
-    public function update(Request $request)
+    public function update(Request $request, CommandBusInterface $commandBus)
     {
-        return JsonResponse::create([], Response::HTTP_NOT_IMPLEMENTED);
+        $content = json_decode($request->getContent(), true);
+        $commandBus->dispatch(new EditTrack(
+            (int) $request->get('trackId'),
+            (int) $content['albumId'],
+            $content['title'],
+            $content['url'],
+        ));
+
+        return JsonResponse::create([],
+            Response::HTTP_OK,
+            $this->responseHeaderBag->all()
+        );
     }
 
     /**
