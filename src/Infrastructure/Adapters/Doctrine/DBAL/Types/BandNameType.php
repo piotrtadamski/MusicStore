@@ -3,7 +3,7 @@
 namespace MusicStore\Infrastructure\Adapters\Doctrine\DBAL\Types;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use MusicStore\Domain\Band\Types\BandName;
+use MusicStore\Domain\Band\BandName;
 
 final class BandNameType extends AbstractStringType
 {
