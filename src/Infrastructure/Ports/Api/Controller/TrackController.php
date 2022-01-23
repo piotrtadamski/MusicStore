@@ -58,11 +58,17 @@ class TrackController extends AbstractController
     }
 
     /**
-     * @Route(path="", methods={"GET"})
+     * @Route(path="", name="api_track_list",methods={"GET"})
      */
-    public function listAll(Request $request)
+    public function listAll(TrackRepositoryInterface $trackRepository)
     {
-        return JsonResponse::create([], Response::HTTP_NOT_IMPLEMENTED);
+        $tracks = $trackRepository->findAll();
+        $count = \count($tracks);
+
+        return JsonResponse::create(json_encode($tracks), Response::HTTP_OK, [
+                'Content-Range' => sprintf('%s %d-%d/%d', 'Track', 0, $count, $count)
+            ]
+        );
     }
 
     /**
