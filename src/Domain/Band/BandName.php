@@ -2,7 +2,7 @@
 
 namespace MusicStore\Domain\Band;
 
-class BandName
+class BandName implements \JsonSerializable
 {
     private string $bandName;
 
@@ -17,6 +17,11 @@ class BandName
     }
 
     public function __toString()
+    {
+        return $this->bandName;
+    }
+
+    public function jsonSerialize()
     {
         return $this->bandName;
     }
