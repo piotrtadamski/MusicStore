@@ -2,6 +2,8 @@
 
 namespace MusicStore\Infrastructure\Ports\Api\Controller;
 
+use MusicStore\Application\Command\CommandBusInterface;
+use MusicStore\Application\Command\Track\AddTrack;
 use MusicStore\Domain\Track\TrackRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -56,10 +58,20 @@ class TrackController extends AbstractController
     }
 
     /**
-     * @Route(path="", methods={"POST"})
+     * @Route(path="", name="api_track_create", methods={"POST"})
      */
-    public function create()
+    public function create(Request $request, CommandBusInterface $commandBus)
     {
-        return JsonResponse::create([], Response::HTTP_NOT_IMPLEMENTED);
+        $content = json_decode($request->getContent(), true);
+        $commandBus->dispatch(new AddTrack(
+            $content['title'],
+            $content['url'],
+            (int) $content['albumId'],
+        ));
+
+        return JsonResponse::create([],
+            Response::HTTP_CREATED,
+            $this->responseHeaderBag->all()
+        );
     }
 }
