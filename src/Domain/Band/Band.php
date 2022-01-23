@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="bands")
  */
-class Band
+class Band implements \JsonSerializable
 {
     /** @ORM\Id() @ORM\Column(type="integer") @ORM\GeneratedValue() */
     private int $id;
@@ -39,5 +39,13 @@ class Band
     public static function create(BandName $bandName): self
     {
         return new self($bandName);
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+          'name' => $this->getBandName()
+        ];
     }
 }
