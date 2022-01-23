@@ -31,11 +31,13 @@ class TrackRepository implements TrackRepositoryInterface
     public function save(Track $track): Track
     {
         $this->entityManager->persist($track);
+        $this->entityManager->flush();
         return $track;
     }
 
     public function remove(Track $track)
     {
         $this->entityManager->remove($track);
+        $this->entityManager->flush();
     }
 }
