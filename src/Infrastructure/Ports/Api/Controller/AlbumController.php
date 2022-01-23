@@ -46,7 +46,7 @@ class AlbumController extends AbstractController
      */
     public function show(Request $request, AlbumRepositoryInterface $albumRepository)
     {
-        $track = $albumRepository->get((int) $request->get('albumId'));
+        $track = $albumRepository->get((int)$request->get('albumId'));
         return JsonResponse::create($track);
     }
 
@@ -57,15 +57,18 @@ class AlbumController extends AbstractController
     {
         $content = json_decode($request->getContent(), true);
         $commandBus->dispatch(new EditAlbum(
-            (int) $request->get('albumId'),
-            (int) $content['bandId'],
+            (int)$request->get('albumId'),
+            (int)$content['bandId'],
             $content['title'],
             $content['year']
         ));
 
-        return JsonResponse::create([],
-            Response::HTTP_OK,
-            $this->responseHeaderBag->all()
+        return JsonResponse::create(
+            $content +
+            [
+                'albumId' => (int)$request->get('albumId')
+            ],
+            Response::HTTP_OK
         );
     }
 
@@ -75,10 +78,13 @@ class AlbumController extends AbstractController
     public function remove(Request $request, CommandBusInterface $commandBus)
     {
         $commandBus->dispatch(new DeleteAlbum(
-            (int) $request->get('albumId')
+            (int)$request->get('albumId')
         ));
 
-        return JsonResponse::create([],
+        return JsonResponse::create(
+            [
+                (int)$request->get('albumId')
+            ],
             Response::HTTP_OK,
             $this->responseHeaderBag->all()
         );
@@ -107,7 +113,7 @@ class AlbumController extends AbstractController
         $commandBus->dispatch(new AddAlbum(
             $content['title'],
             $content['year'],
-            (int) $content['bandId']
+            (int)$content['bandId']
         ));
 
         return JsonResponse::create([],
