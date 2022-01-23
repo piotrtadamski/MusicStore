@@ -92,7 +92,7 @@ class AlbumController extends AbstractController
         $commandBus->dispatch(new AddAlbum(
             $content['title'],
             $content['year'],
-            (int) $content['albumId']
+            (int) $content['bandId']
         ));
 
         return JsonResponse::create([],
