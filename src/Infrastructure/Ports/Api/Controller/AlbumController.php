@@ -4,6 +4,7 @@ namespace MusicStore\Infrastructure\Ports\Api\Controller;
 
 use MusicStore\Application\Command\Album\AddAlbum;
 use MusicStore\Application\Command\CommandBusInterface;
+use MusicStore\Domain\Album\AlbumRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,12 +23,14 @@ class AlbumController extends AbstractController
     {
         $this->responseHeaderBag = $responseHeaderBag;
     }
+
     /**
-     * @Route(path="", methods={"GET"})
+     * @Route(path="/{albumId}", name="api_album_show", methods={"GET"})
      */
-    public function show()
+    public function show(Request $request, AlbumRepositoryInterface $albumRepository)
     {
-        return JsonResponse::create([], Response::HTTP_NOT_IMPLEMENTED);
+        $track = $albumRepository->get((int) $request->get('albumId'));
+        return JsonResponse::create($track);
     }
 
     /**
