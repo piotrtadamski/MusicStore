@@ -42,7 +42,7 @@ class BandController extends AbstractController
     {
         $content = json_decode($request->getContent(), true);
         $commandBus->dispatch(new EditBand(
-            $request->get('bandId'),
+            (int) $request->get('bandId'),
             $content['name']
         ));
 
@@ -58,7 +58,7 @@ class BandController extends AbstractController
     public function remove(Request $request, CommandBusInterface $commandBus)
     {
         $commandBus->dispatch(new DeleteBand(
-            $request->get('bandId')
+            (int) $request->get('bandId')
         ));
 
         return JsonResponse::create([],
