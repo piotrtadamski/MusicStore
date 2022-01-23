@@ -31,7 +31,7 @@ class BandController extends AbstractController
      */
     public function show(Request $request, BandRepositoryInterface $bandRepository)
     {
-        $track = $bandRepository->get($request->get('bandId'));
+        $track = $bandRepository->get((int) $request->get('bandId'));
         return JsonResponse::create($track);
     }
 
