@@ -3,6 +3,7 @@
 namespace MusicStore\Infrastructure\Ports\Api\Controller;
 
 use MusicStore\Application\Command\Band\AddBand;
+use MusicStore\Application\Command\Band\EditBand;
 use MusicStore\Application\Command\CommandBusInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -32,11 +33,20 @@ class BandController extends AbstractController
     }
 
     /**
-     * @Route(path="", methods={"PUT"})
+     * @Route(path="/{bandId}", name="api_band_update", methods={"PUT"})
      */
-    public function update(Request $request)
+    public function update(Request $request, CommandBusInterface $commandBus)
     {
-        return JsonResponse::create([], Response::HTTP_NOT_IMPLEMENTED);
+        $content = json_decode($request->getContent(), true);
+        $commandBus->dispatch(new EditBand(
+            $request->get('bandId'),
+            $content['name']
+        ));
+
+        return JsonResponse::create([],
+            Response::HTTP_CREATED,
+            $this->responseHeaderBag->all()
+        );
     }
 
     /**
