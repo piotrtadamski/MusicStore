@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
+use MusicStore\Domain\Band\BandRepositoryInterface;
 
 /**
  * @Route(path="/api/band")
@@ -26,11 +27,12 @@ class BandController extends AbstractController
     }
 
     /**
-     * @Route(path="", methods={"GET"})
+     * @Route(path="/{bandId}", name="api_band_show", methods={"GET"})
      */
-    public function show()
+    public function show(Request $request, BandRepositoryInterface $bandRepository)
     {
-        return JsonResponse::create([], Response::HTTP_NOT_IMPLEMENTED);
+        $track = $bandRepository->get($request->get('bandId'));
+        return JsonResponse::create($track);
     }
 
     /**
