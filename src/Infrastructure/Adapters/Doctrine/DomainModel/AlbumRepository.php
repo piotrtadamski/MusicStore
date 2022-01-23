@@ -33,11 +33,13 @@ class AlbumRepository implements AlbumRepositoryInterface
     public function save(Album $album): Album
     {
         $this->entityManager->persist($album);
+        $this->entityManager->flush();
         return $album;
     }
 
     public function remove(Album $album)
     {
         $this->entityManager->remove($album);
+        $this->entityManager->flush();
     }
 }
