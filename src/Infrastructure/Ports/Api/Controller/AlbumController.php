@@ -3,6 +3,7 @@
 namespace MusicStore\Infrastructure\Ports\Api\Controller;
 
 use MusicStore\Application\Command\Album\AddAlbum;
+use MusicStore\Application\Command\Album\EditAlbum;
 use MusicStore\Application\Command\CommandBusInterface;
 use MusicStore\Domain\Album\AlbumRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,11 +35,22 @@ class AlbumController extends AbstractController
     }
 
     /**
-     * @Route(path="", methods={"PUT"})
+     * @Route(path="/{bandId}", name="api_album_update", methods={"PUT"})
      */
-    public function update(Request $request)
+    public function update(Request $request, CommandBusInterface $commandBus)
     {
-        return JsonResponse::create([], Response::HTTP_NOT_IMPLEMENTED);
+        $content = json_decode($request->getContent(), true);
+        $commandBus->dispatch(new EditAlbum(
+            (int) $request->get('albumId'),
+            (int) $request->get('bandId'),
+            $content['title'],
+            $content['year']
+        ));
+
+        return JsonResponse::create([],
+            Response::HTTP_OK,
+            $this->responseHeaderBag->all()
+        );
     }
 
     /**
