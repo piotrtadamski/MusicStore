@@ -28,7 +28,7 @@ class DomainEntityUpdate implements EventSubscriberInterface
     )
     {
         $this->router = $router;
-        $this->request = $requestStack->getCurrentRequest();
+        $this->request = $requestStack->getCurrentRequest() ?? Request::createFromGlobals();
         $this->responseHeaderBag = $responseHeaderBag;
     }
 
