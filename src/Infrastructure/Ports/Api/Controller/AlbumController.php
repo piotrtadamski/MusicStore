@@ -2,6 +2,8 @@
 
 namespace MusicStore\Infrastructure\Ports\Api\Controller;
 
+use MusicStore\Application\Command\Album\AddAlbum;
+use MusicStore\Application\Command\CommandBusInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,10 +55,20 @@ class AlbumController extends AbstractController
     }
 
     /**
-     * @Route(path="", methods={"POST"})
+     * @Route(path="", name="api_album_create", methods={"POST"})
      */
-    public function create()
+    public function create(Request $request, CommandBusInterface $commandBus)
     {
-        return JsonResponse::create([], Response::HTTP_NOT_IMPLEMENTED);
+        $content = json_decode($request->getContent(), true);
+        $commandBus->dispatch(new AddAlbum(
+            $content['title'],
+            $content['year'],
+            (int) $content['albumId']
+        ));
+
+        return JsonResponse::create([],
+            Response::HTTP_CREATED,
+            $this->responseHeaderBag->all()
+        );
     }
 }
