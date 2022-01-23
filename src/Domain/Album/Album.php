@@ -35,6 +35,9 @@ class Album implements \JsonSerializable
      */
     private Collection $tracks;
 
+    /** @ORM\Column(type="boolean") */
+    private $isPromoted = false;
+
     public function __construct(Title $title, Year $year, Band $band)
     {
         $this->title = $title;
@@ -111,5 +114,15 @@ class Album implements \JsonSerializable
         $this->tracks->removeElement($track);
 
         return $this;
+    }
+
+    public function isPromoted(): bool
+    {
+        return $this->isPromoted;
+    }
+
+    public function setIsPromoted(bool $isPromoted): void
+    {
+        $this->isPromoted = $isPromoted;
     }
 }
