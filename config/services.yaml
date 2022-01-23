@@ -57,3 +57,7 @@ services:
             $responseHeaderBag: '@MusicStore\Infrastructure\Adapters\Doctrine\EventListener\ResponseHeaderBag'
         tags:
             - name: 'doctrine.event_subscriber'
+
+    MusicStore\Application\Command\Album\PromoteAlbumHandler:
+        arguments:
+            $recipients: '%env(require:resolve:SUBSCRIBER_LIST_FILEPATH)%'
