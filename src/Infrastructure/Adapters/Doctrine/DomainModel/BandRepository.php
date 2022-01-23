@@ -33,11 +33,13 @@ class BandRepository implements BandRepositoryInterface
     public function save(Band $band): Band
     {
         $this->entityManager->persist($band);
+        $this->entityManager->flush();
         return $band;
     }
 
     public function remove(Band $band)
     {
         $this->entityManager->remove($band);
+        $this->entityManager->flush();
     }
 }
