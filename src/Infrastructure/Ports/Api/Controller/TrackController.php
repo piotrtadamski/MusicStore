@@ -4,6 +4,7 @@ namespace MusicStore\Infrastructure\Ports\Api\Controller;
 
 use MusicStore\Application\Command\CommandBusInterface;
 use MusicStore\Application\Command\Track\AddTrack;
+use MusicStore\Application\Command\Track\DeleteTrack;
 use MusicStore\Domain\Track\TrackRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -42,11 +43,18 @@ class TrackController extends AbstractController
     }
 
     /**
-     * @Route(path="", methods={"DELETE"})
+     * @Route(path="/{trackId}", name="api_track_delete", methods={"DELETE"})
      */
-    public function remove(Request $request)
+    public function remove(Request $request, CommandBusInterface $commandBus)
     {
-        return JsonResponse::create([]);
+        $commandBus->dispatch(new DeleteTrack(
+            (int) $request->get('trackId')
+        ));
+
+        return JsonResponse::create([],
+            Response::HTTP_OK,
+            $this->responseHeaderBag->all()
+        );
     }
 
     /**
