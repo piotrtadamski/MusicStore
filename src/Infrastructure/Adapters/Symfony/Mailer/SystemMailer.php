@@ -1,6 +1,6 @@
 <?php
 
-namespace MusicStore\Infrastructure\Adapters\Mailer;
+namespace MusicStore\Infrastructure\Adapters\Symfony\Mailer;
 
 use MusicStore\Application\Notification\MailerInterface;
 use Symfony\Component\Mailer\MailerInterface as SymfonyMailerInterface;
