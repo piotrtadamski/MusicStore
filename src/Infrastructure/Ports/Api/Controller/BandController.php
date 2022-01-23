@@ -68,11 +68,17 @@ class BandController extends AbstractController
     }
 
     /**
-     * @Route(path="", methods={"GET"})
+     * @Route(path="", name="api_band_list",methods={"GET"})
      */
-    public function listAll(Request $request)
+    public function listAll(BandRepositoryInterface $bandRepository)
     {
-        return JsonResponse::create([], Response::HTTP_NOT_IMPLEMENTED);
+        $bands = $bandRepository->findAll();
+        $count = \count($bands);
+
+        return JsonResponse::create(json_encode($bands), Response::HTTP_OK, [
+                'Content-Range' => sprintf('%s %d-%d/%d', 'Bands', 0, $count, $count)
+            ]
+        );
     }
 
     /**
