@@ -62,7 +62,7 @@ class BandController extends AbstractController
         ));
 
         return JsonResponse::create([],
-            Response::HTTP_CREATED,
+            Response::HTTP_OK,
             $this->responseHeaderBag->all()
         );
     }
