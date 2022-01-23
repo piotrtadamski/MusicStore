@@ -2,7 +2,7 @@
 
 namespace MusicStore\Domain\Common\Types;
 
-class Url
+class Url  implements \JsonSerializable
 {
     private string $url;
 
@@ -17,6 +17,11 @@ class Url
     }
 
     public function __toString()
+    {
+        return $this->url;
+    }
+
+    public function jsonSerialize()
     {
         return $this->url;
     }
