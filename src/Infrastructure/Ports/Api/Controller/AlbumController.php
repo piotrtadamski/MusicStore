@@ -3,6 +3,7 @@
 namespace MusicStore\Infrastructure\Ports\Api\Controller;
 
 use MusicStore\Application\Command\Album\AddAlbum;
+use MusicStore\Application\Command\Album\DeleteAlbum;
 use MusicStore\Application\Command\Album\EditAlbum;
 use MusicStore\Application\Command\CommandBusInterface;
 use MusicStore\Domain\Album\AlbumRepositoryInterface;
@@ -54,11 +55,18 @@ class AlbumController extends AbstractController
     }
 
     /**
-     * @Route(path="", methods={"DELETE"})
+     * @Route(path="/{albumId}", name="api_album_delete", methods={"DELETE"})
      */
-    public function remove(Request $request)
+    public function remove(Request $request, CommandBusInterface $commandBus)
     {
-        return JsonResponse::create([]);
+        $commandBus->dispatch(new DeleteAlbum(
+            (int) $request->get('albumId')
+        ));
+
+        return JsonResponse::create([],
+            Response::HTTP_OK,
+            $this->responseHeaderBag->all()
+        );
     }
 
     /**
