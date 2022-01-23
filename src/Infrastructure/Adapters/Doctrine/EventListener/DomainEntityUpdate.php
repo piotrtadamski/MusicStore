@@ -53,11 +53,12 @@ class DomainEntityUpdate implements EventSubscriberInterface
             Track::class => ['route' => 'api_track_show', 'id' => 'trackId'],
         ];
 
-        foreach ([Album::class, Band::class, Track::class] as $class) {
+        foreach ([Track::class, Band::class, Album::class] as $class) {
             foreach ($args->getEntityManager()->getUnitOfWork()->getIdentityMap()[$class] ?? [] as $idKey => $entity) {
                 $location = (!empty($location) ? $location . ', ' : '') . $this->router->generate($routeParams[$class]['route'], [
                         $routeParams[$class]['id'] => $entity->getId()
                     ]);
+                break (2);
             }
         }
 
