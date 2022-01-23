@@ -2,7 +2,7 @@
 
 namespace MusicStore\Domain\Common\Types;
 
-class Year
+class Year  implements \JsonSerializable
 {
     private string $year;
 
@@ -17,6 +17,11 @@ class Year
     }
 
     public function __toString()
+    {
+        return $this->year;
+    }
+
+    public function jsonSerialize()
     {
         return $this->year;
     }
