@@ -11,7 +11,7 @@ use MusicStore\Domain\Common\Types\Url;
  * @ORM\Entity
  * @ORM\Table(name="tracks")
  */
-class Track
+class Track implements \JsonSerializable
 {
     /** @ORM\Id() @ORM\Column(type="integer") @ORM\GeneratedValue() */
     private int $id;
@@ -73,5 +73,14 @@ class Track
     public static function create(Title $title, Url $url, Album $album): self
     {
         return new self($title, $url, $album);
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'title' => $this->getTitle(),
+            'url' => $this->getUrl(),
+        ];
     }
 }
