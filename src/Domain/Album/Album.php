@@ -88,9 +88,13 @@ class Album implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-          'id' => $this->getId(),
+            'id' => $this->getId(),
             'title' => $this->getTitle(),
-            'band' => $this->getBand()
+            'year' => $this->getYear(),
+            'band' => [
+                'id' => $this->getBand()->getId(),
+                'name' => $this->getBand()->getBandName()
+            ]
         ];
     }
 
