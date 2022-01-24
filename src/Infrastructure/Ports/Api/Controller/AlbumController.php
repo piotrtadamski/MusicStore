@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @Route(path="/api/album")
@@ -44,10 +45,10 @@ class AlbumController extends AbstractController
     /**
      * @Route(path="/{albumId}", name="api_album_show", methods={"GET"})
      */
-    public function show(Request $request, AlbumRepositoryInterface $albumRepository)
+    public function show(Request $request, AlbumRepositoryInterface $albumRepository, NormalizerInterface $normalizer)
     {
-        $track = $albumRepository->get((int)$request->get('albumId'));
-        return JsonResponse::create($track);
+        $album = $albumRepository->get((int)$request->get('albumId'));
+        return JsonResponse::create($normalizer->normalize($album, 'json'));
     }
 
     /**
@@ -93,12 +94,12 @@ class AlbumController extends AbstractController
     /**
      * @Route(path="", name="api_album_list",methods={"GET"})
      */
-    public function listAll(AlbumRepositoryInterface $albumRepository)
+    public function listAll(AlbumRepositoryInterface $albumRepository, NormalizerInterface $normalizer)
     {
         $albums = $albumRepository->findAll();
         $count = \count($albums);
 
-        return JsonResponse::create(json_encode($albums), Response::HTTP_OK, [
+        return JsonResponse::create($normalizer->normalize($albums, 'json'), Response::HTTP_OK, [
                 'Content-Range' => sprintf('%s %d-%d/%d', 'Album', 0, $count, $count)
             ]
         );

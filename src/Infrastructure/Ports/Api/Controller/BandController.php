@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 use MusicStore\Domain\Band\BandRepositoryInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @Route(path="/api/band")
@@ -29,10 +30,10 @@ class BandController extends AbstractController
     /**
      * @Route(path="/{bandId}", name="api_band_show", methods={"GET"})
      */
-    public function show(Request $request, BandRepositoryInterface $bandRepository)
+    public function show(Request $request, BandRepositoryInterface $bandRepository, NormalizerInterface $normalizer)
     {
-        $track = $bandRepository->get((int) $request->get('bandId'));
-        return JsonResponse::create($track);
+        $band = $bandRepository->get((int) $request->get('bandId'));
+        return JsonResponse::create($normalizer->normalize($band, 'json'));
     }
 
     /**
@@ -70,12 +71,12 @@ class BandController extends AbstractController
     /**
      * @Route(path="", name="api_band_list",methods={"GET"})
      */
-    public function listAll(BandRepositoryInterface $bandRepository)
+    public function listAll(BandRepositoryInterface $bandRepository, NormalizerInterface $normalizer)
     {
         $bands = $bandRepository->findAll();
         $count = \count($bands);
 
-        return JsonResponse::create(json_encode($bands), Response::HTTP_OK, [
+        return JsonResponse::create($normalizer->normalize($bands, 'json'), Response::HTTP_OK, [
                 'Content-Range' => sprintf('%s %d-%d/%d', 'Bands', 0, $count, $count)
             ]
         );

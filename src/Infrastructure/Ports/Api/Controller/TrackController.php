@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @Route(path="/api/track")
@@ -29,10 +30,10 @@ class TrackController extends AbstractController
     /**
      * @Route(path="/{trackId}", name="api_track_show", methods={"GET"})
      */
-    public function show(Request $request, TrackRepositoryInterface $trackRepository)
+    public function show(Request $request, TrackRepositoryInterface $trackRepository, NormalizerInterface $normalizer)
     {
         $track = $trackRepository->get((int) $request->get('trackId'));
-        return JsonResponse::create($track);
+        return JsonResponse::create($normalizer->normalize($track, 'json'));
     }
 
     /**
@@ -72,12 +73,12 @@ class TrackController extends AbstractController
     /**
      * @Route(path="", name="api_track_list",methods={"GET"})
      */
-    public function listAll(TrackRepositoryInterface $trackRepository)
+    public function listAll(TrackRepositoryInterface $trackRepository, NormalizerInterface $normalizer)
     {
         $tracks = $trackRepository->findAll();
         $count = \count($tracks);
 
-        return JsonResponse::create(json_encode($tracks), Response::HTTP_OK, [
+        return JsonResponse::create($normalizer->normalize($tracks, 'json'), Response::HTTP_OK, [
                 'Content-Range' => sprintf('%s %d-%d/%d', 'Track', 0, $count, $count)
             ]
         );
